@@ -54,7 +54,25 @@ class Container {
                 yield products.push(product);
                 yield fs_1.default.promises.writeFile(this.filePath, JSON.stringify(products));
                 console.log(`on save with id:${product.id}`);
-                return product.id;
+                return product;
+            }
+            catch (error) {
+                console.log(error);
+            }
+        });
+    }
+    update(product) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const products = yield this.getAllProducts();
+                yield products.forEach((el, index, array) => {
+                    if (el.id === product.id) {
+                        array.splice(index, 1, product);
+                    }
+                });
+                yield fs_1.default.promises.writeFile(this.filePath, JSON.stringify(products));
+                console.log(`product update with id: ${product.id}`);
+                return product;
             }
             catch (error) {
                 console.log(error);
@@ -76,8 +94,14 @@ class Container {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const products = yield this.getAllProducts();
-                const newArray = products.filter((el) => el.id !== id);
-                yield fs_1.default.promises.writeFile(this.filePath, JSON.stringify(newArray));
+                if (products.some((el) => el.id === id)) {
+                    const newArray = products.filter((el) => el.id !== id);
+                    yield fs_1.default.promises.writeFile(this.filePath, JSON.stringify(newArray));
+                    return true;
+                }
+                else {
+                    return false;
+                }
             }
             catch (error) {
                 console.log(error);

@@ -27,11 +27,29 @@ export class Container {
             await products.push(product);
             await fs.promises.writeFile(this.filePath, JSON.stringify(products));
             console.log(`on save with id:${product.id}`);
-            return product.id;
+            return product;
         } catch (error) {
             console.log(error);
         }
     }
+
+   async update(product: Product) {
+       try {
+            const products = await this.getAllProducts();
+            await products.forEach((el:Product, index:number, array:Product[]) =>{
+                if(el.id === product.id){
+                    array.splice(index,1,product)
+                }
+            });
+            await fs.promises.writeFile(this.filePath, JSON.stringify(products));
+            console.log(`product update with id: ${product.id}`);
+            return product;
+            
+
+       } catch (error) {
+           console.log(error);
+       }
+   }
 
     async getById( id:number ){
 
@@ -48,8 +66,13 @@ export class Container {
 
         try {
             const products = await this.getAllProducts();
-            const newArray = products.filter( (el:Product) => el.id !== id );
-            await fs.promises.writeFile(this.filePath, JSON.stringify(newArray));
+            if(products.some( (el:Product)=>el.id===id)){
+                const newArray = products.filter( (el:Product) => el.id !== id );
+                await fs.promises.writeFile(this.filePath, JSON.stringify(newArray));
+                return true
+            }else{
+                return false
+            }
 
         } catch (error) {
             console.log(error);
