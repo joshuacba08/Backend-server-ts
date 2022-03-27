@@ -37,8 +37,8 @@ const fs_1 = __importDefault(require("fs"));
 class Container {
     constructor(file) {
         this.file = file;
-        this.filePath = path.join(__dirname, `../../data/${this.file}`);
-        console.log('file in: ', path.join(__dirname, `../../data/${this.file}`));
+        this.filePath = path.join(__dirname, `../../src/data/${this.file}`);
+        console.log('file in: ', path.join(__dirname, `../../src/data/${this.file}`));
     }
     getAllProducts() {
         return __awaiter(this, void 0, void 0, function* () {

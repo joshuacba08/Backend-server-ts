@@ -1,13 +1,18 @@
 import express, { Application } from 'express';
+import * as path from "path";
+
 import productsRoutes from '../routes/products';
-import cors from 'cors'
+import clientProductRoutes from '../routes/client-products'
+import cors from 'cors';
+
 
 class Server {
 
     private app: Application;
     private port: string;
     private apiPaths = {
-        products:'/api/products'
+        products:'/api/products',
+        clientProducts:'/products'
     };
 
     constructor() {
@@ -16,6 +21,7 @@ class Server {
         this.middlewares();
         //definición de rutas
         this.routes(); 
+        this.views();
     }
 
     middlewares(){
@@ -31,6 +37,16 @@ class Server {
 
     routes(){
         this.app.use( this.apiPaths.products, productsRoutes );
+        this.app.use( this.apiPaths.clientProducts, clientProductRoutes );
+    }
+
+    views() {
+        //motores de plantillas
+        // this.app.set("view engine", "hbs");
+        // this.app.set('views', '/views'); 
+
+        this.app.set('views', path.join(__dirname, '../../views'))
+        this.app.set("view engine", "hbs");
     }
 
     listen(){

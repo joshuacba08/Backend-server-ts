@@ -11,8 +11,8 @@ export class Container {
         public file:string,
         
     ){
-        this.filePath = path.join(__dirname,`../../data/${this.file}`);
-        console.log('file in: ',path.join(__dirname,`../../data/${this.file}`)); 
+        this.filePath = path.join(__dirname,`../../src/data/${this.file}`);
+        console.log('file in: ',path.join(__dirname,`../../src/data/${this.file}`)); 
     }
 
     async getAllProducts(){
