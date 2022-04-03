@@ -9,9 +9,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addProduct = exports.getAllProducts = void 0;
+exports.addProduct = exports.getAllProducts = exports.showForm = void 0;
 const container_1 = require("../helpers/container");
 const container = new container_1.Container('products.json');
+const showForm = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    return res.render('index.hbs');
+});
+exports.showForm = showForm;
 const getAllProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('se ejecuta get');
     try {

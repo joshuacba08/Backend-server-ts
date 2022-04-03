@@ -4,6 +4,12 @@ import { Container } from '../helpers/container'
 const container = new Container('products.json');
 
 
+export const showForm = async (req: Request, res: Response) => {
+
+    return res.render('index.hbs');
+
+}
+
 export const getAllProducts = async (req: Request, res: Response) => {
     console.log('se ejecuta get')
     try {

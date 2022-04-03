@@ -1,9 +1,12 @@
 import express, { Application } from 'express';
+import { Server as ServerIo } from "socket.io";
 import * as path from "path";
 
 import productsRoutes from '../routes/products';
 import clientProductRoutes from '../routes/client-products'
 import cors from 'cors';
+import { socketController } from '../sockets/controller';
+
 
 
 class Server {
@@ -14,14 +17,23 @@ class Server {
         products:'/api/products',
         clientProducts:'/products'
     };
+    private server: any;
+    private io: any;
 
     constructor() {
         this.app = express();
         this.port = process.env.PORT || '8080';
+        this.server = require('http').createServer(this.app)
+        this.io = require('socket.io')(this.server); //toda la info de los clientes conectados
+        //ejecución de middlewares
         this.middlewares();
         //definición de rutas
         this.routes(); 
         this.views();
+
+        // Sockets
+        this.sockets();  
+
     }
 
     middlewares(){
@@ -40,6 +52,11 @@ class Server {
         this.app.use( this.apiPaths.clientProducts, clientProductRoutes );
     }
 
+    sockets(){
+        this.io.on('connection', socketController);
+        
+    }
+
     views() {
         //motores de plantillas
         // this.app.set("view engine", "hbs");
@@ -51,7 +68,7 @@ class Server {
 
     listen(){
 
-        this.app.listen( this.port, ()=>{
+        this.server.listen( this.port, ()=>{
             console.log(`Servidor corriendo en el puerto ${this.port}`)
         }); 
 

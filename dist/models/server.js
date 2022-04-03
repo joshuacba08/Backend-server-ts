@@ -27,6 +27,7 @@ const path = __importStar(require("path"));
 const products_1 = __importDefault(require("../routes/products"));
 const client_products_1 = __importDefault(require("../routes/client-products"));
 const cors_1 = __importDefault(require("cors"));
+const controller_1 = require("../sockets/controller");
 class Server {
     constructor() {
         this.apiPaths = {
@@ -35,10 +36,15 @@ class Server {
         };
         this.app = (0, express_1.default)();
         this.port = process.env.PORT || '8080';
+        this.server = require('http').createServer(this.app);
+        this.io = require('socket.io')(this.server); //toda la info de los clientes conectados
+        //ejecución de middlewares
         this.middlewares();
         //definición de rutas
         this.routes();
         this.views();
+        // Sockets
+        this.sockets();
     }
     middlewares() {
         //cors
@@ -54,6 +60,9 @@ class Server {
         this.app.use(this.apiPaths.products, products_1.default);
         this.app.use(this.apiPaths.clientProducts, client_products_1.default);
     }
+    sockets() {
+        this.io.on('connection', controller_1.socketController);
+    }
     views() {
         //motores de plantillas
         // this.app.set("view engine", "hbs");
@@ -62,7 +71,7 @@ class Server {
         this.app.set("view engine", "hbs");
     }
     listen() {
-        this.app.listen(this.port, () => {
+        this.server.listen(this.port, () => {
             console.log(`Servidor corriendo en el puerto ${this.port}`);
         });
     }
