@@ -1,14 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="stylesheet" href="/styles.css">
+    <title>Carga de Productos</title>
+</head>
     <body>
-            <h2>Acá mostraré lo productos</h2>
-            <script src="/socket.io/socket.io.js"></script>
-            <script src="/js/socket-client.js"></script>
+        <h1 class="title">CARGAR PRODUCTOS</h1>
+
+        <form id="form-product" class="form">
+            <div class="form-item">
+                <label for="title">Nombre del producto:</label>
+                <input name="title" type="text" required>
+            </div>
+
+            <div class="form-item">
+                <label for="price">Precio:</label>
+                <input type="number" name="price" required>
+            </div>
+
+            <div class="form-item">
+                <label for="thumbnail">URL de la imagen:</label>
+                <input type="text" name="thumbnail" required>
+            </div>
+
+            <button type="submit">Cargar Producto</button>
+        </form>
+
+        <section class="product-list-container">
+            <h2>Productos agregados recientemente</h2>
+
+            <div class="product-list">
+
+                <article class="product-list__item">
+                    <div class="item__img">
+                        <img src="https://images.pexels.com/photos/1292984/pexels-photo-1292984.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="">
+                    </div>
+                    <div class="item__info">
+                        <h3>Nombre del producto</h3>
+                        <span>$750</span>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/socket-client.js"></script> 
     </body>
 </html>

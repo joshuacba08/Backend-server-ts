@@ -4,31 +4,31 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="stylesheet" href="styles.css">
     <title>Carga de Productos</title>
 </head>
 <body>
 
-    <h1 class="title">CARGAR PRODUCTOS</h1>
+    <h1 class="title">Bienvenidos a Rest Server TypeScript</h1>
 
-    <form  action="/products" class="form" method="post">
-        <div class="form-item">
-            <label for="title">Nombre del producto:</label>
-            <input name="title" type="text" required>
-        </div>
-
-        <div class="form-item">
-            <label for="price">Precio:</label>
-            <input type="number" name="price" required>
-        </div>
-
-        <div class="form-item">
-            <label for="thumbnail">URL de la imagen:</label>
-            <input type="text" name="thumbnail" required>
-        </div>
-
-        <button type="submit">Cargar Producto</button>
-    </form>
     
+
+    <section class="options-group">
+        <h2>Haz clic en la acción que deseas hacer</h2>
+        <a href="/products">
+            <div class="server-option">
+                <span>Ver productos</span>
+            </div>
+        </a>
+    
+        <a href="/products/add">
+            <div class="server-option">
+                <span>Agregar un producto</span>
+            </div>
+        </a>
+
+    </section>
+
 </body>
 </html>
