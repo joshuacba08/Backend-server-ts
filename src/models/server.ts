@@ -15,7 +15,8 @@ class Server {
     private port: string;
     private apiPaths = {
         products:'/api/products',
-        clientProducts:'/products'
+        clientProducts:'/products',
+        cart:'/api/cart'
     };
     private server: any;
     private io: any;

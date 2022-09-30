@@ -32,7 +32,8 @@ class Server {
     constructor() {
         this.apiPaths = {
             products: '/api/products',
-            clientProducts: '/products'
+            clientProducts: '/products',
+            cart: '/api/cart'
         };
         this.app = (0, express_1.default)();
         this.port = process.env.PORT || '8080';
