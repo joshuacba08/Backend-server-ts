@@ -28,17 +28,20 @@ const products_1 = __importDefault(require("../routes/products"));
 const client_products_1 = __importDefault(require("../routes/client-products"));
 const cors_1 = __importDefault(require("cors"));
 const controller_1 = require("../sockets/controller");
+const relationalModel_1 = __importDefault(require("./relationalModel"));
 class Server {
     constructor() {
         this.apiPaths = {
-            products: '/api/products',
-            clientProducts: '/products',
-            cart: '/api/cart'
+            products: "/api/products",
+            clientProducts: "/products",
+            cart: "/api/cart",
         };
         this.app = (0, express_1.default)();
-        this.port = process.env.PORT || '8080';
-        this.server = require('http').createServer(this.app);
-        this.io = require('socket.io')(this.server); //toda la info de los clientes conectados
+        this.port = process.env.PORT || "8080";
+        this.server = require("http").createServer(this.app);
+        this.io = require("socket.io")(this.server); //toda la info de los clientes conectados
+        //database config
+        this.database();
         //ejecución de middlewares
         this.middlewares();
         //definición de rutas
@@ -55,20 +58,29 @@ class Server {
         //parseo del body:
         this.app.use(express_1.default.urlencoded({ extended: true }));
         //carpeta pública.
-        this.app.use(express_1.default.static('public'));
+        this.app.use(express_1.default.static("public"));
     }
     routes() {
         this.app.use(this.apiPaths.products, products_1.default);
         this.app.use(this.apiPaths.clientProducts, client_products_1.default);
     }
+    database() {
+        const db = new relationalModel_1.default({
+            host: process.env.HOST,
+            user: "blhhi4imf2g989lhaov4",
+            password: process.env.PASSWORD,
+            database: process.env.DATABASE,
+            ssl: true
+        });
+    }
     sockets() {
-        this.io.on('connection', controller_1.socketController);
+        this.io.on("connection", controller_1.socketController);
     }
     views() {
         //motores de plantillas
         // this.app.set("view engine", "hbs");
-        // this.app.set('views', '/views'); 
-        this.app.set('views', path.join(__dirname, '../../views'));
+        // this.app.set('views', '/views');
+        this.app.set("views", path.join(__dirname, "../../views"));
         this.app.set("view engine", "hbs");
     }
     listen() {

@@ -1,0 +1,22 @@
+export const userSchema = [
+ {
+    name:'id',
+    type:'increments'
+ },
+ {
+    name:'fname',
+    type:'string'
+ },
+ {
+    name:'lname',
+    type:'string'
+ },
+ {
+    name:'email',
+    type:'string'
+ },
+ {
+    name:'role',
+    type:'string'
+ }
+]
