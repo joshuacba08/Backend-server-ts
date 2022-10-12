@@ -20,3 +20,22 @@ export const userSchema = [
     type:'string'
  }
 ]
+
+export const productSchema = [
+ {
+   name:'id',
+   type:'increments'
+ },
+ {
+   name:'title',
+   type:'string'
+ },
+ {
+   name:'price',
+   type:'integer'
+ },
+ {
+   name:'thumbnail',
+   type:'string'
+ }
+]

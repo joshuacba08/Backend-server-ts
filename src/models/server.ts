@@ -51,7 +51,7 @@ class Server {
     this.app.use(this.apiPaths.clientProducts, clientProductRoutes);
   }
 
-  database() {
+  async database() {
     const db = new RelationalDatabase({
       host: process.env.HOST!,
       user: "blhhi4imf2g989lhaov4",
@@ -59,6 +59,7 @@ class Server {
       database: process.env.DATABASE!,
       ssl:true
     });
+    
   }
 
   sockets() {
